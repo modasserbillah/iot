@@ -1,0 +1,332 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>IOT</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link href="css/profile.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+        <!-- Start Logo Section -->
+        <section id="logo-section" class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo text-center">
+                            <h1>IOT</h1>
+                            <span>spreading smiles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Logo Section -->
+
+<div class= "row">
+        <div class="container">
+            <div class="row">
+                <div class="user-details">
+                    
+                    <div class="user-info-block">
+                        <div class="user-heading">
+                            <h3><strong> <%= user.local.uname %></strong><br></h3>
+                            <span class="help-block">Member of the IOT team</span>
+                        </div>
+                        <div class="col-md-2">
+                        <% if (  user.local.status === 'admin' ) { %>
+                                <a class="btn btn-success" href="/admin" role="button">Admin Menu</a>
+                        <% } %>
+                        </div>
+                        <br>
+
+
+                        <ul class="navigation" data-tabs="tabs">
+                            <li>
+                                <a  title = "Home"  href="/">
+                                    <span class="glyphicon glyphicon-home"> </span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a data-toggle="tab" title = "Records"  href="#records">
+                                    <span class="glyphicon glyphicon-stats"> <b>Records </b></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" title = "Edit Profile"  href="#edit">
+                                    <span class="glyphicon glyphicon-edit"> <b>Edit Profile</b> </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a title = "See Transactions" data-toggle="tab" href="#see_tr">
+                                    <span class="glyphicon glyphicon-book"> <b>See Transactions</b> </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a title = "Add Transaction" data-toggle="tab" href="#add_tr">
+                                    <span class="glyphicon glyphicon-credit-card"> <b>Add a Transaction</b> </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a title = "Change Password" data-toggle="tab" href="#pass">
+                                    <span class="glyphicon glyphicon-asterisk"> <b>Change Password</b> </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a title = "Log Out"  href="/logout">
+                                    <span class="glyphicon glyphicon-log-out"> </b> </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="user-body">
+                            <div class="tab-content">
+                                <div id="records" class="tab-pane active">
+                                    
+                                        <div class="row">
+
+
+                                            <!-- LOCAL INFORMATION -->
+                                            <div >
+                                                <div class="well">
+                                                    <h3><span class="fa fa-user"></span> Records </h3>
+
+                                                        <table class = "table table-striped">
+                                                           <tr> 
+                                                                <td><strong>Member ID</strong></td>
+                                                                <td> <%= user.memberid %><br></td>
+                                                           </tr>
+                                                           <tr> 
+                                                                <td><strong>Name</strong></td>
+                                                                <td> <%= user.local.uname %><br></td>
+                                                           </tr>
+                                                           <tr>
+                                                                <td><strong>Email</strong></td>
+                                                                <td><%= user.local.email %><br></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Contact Number</strong> </td>
+                                                                <td> <%= user.local.phone %><br></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Monthly Pledged Fee</strong></td>
+                                                                <td> <%= user.local.fee %><br></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Member Since</strong></td>
+                                                                <td><%= user.local.memberSince %><br></td>
+                                                            </tr>
+                                                             <tr>
+                                                                 <td><strong>Fees Clear Upto</strong></td>
+                                                                 <td><%= user.local.clearUpto %><br></td>
+                                                             </tr>
+                                                             <tr>
+                                                                 <td><strong>Fees Paid</strong></td>
+                                                                 <td><%= user.local.paid %><br></td>
+                                                             </tr>
+                                                             <tr class="danger">
+                                                                 <td><strong>Due</strong></td>
+                                                                 <td><%= user.local.due %><br></td>
+                                                             </tr>
+                                                             <tr>
+                                                                 <td><strong>Total Fees(Paid+Due)</strong></td>
+                                                                 <td><%= user.local.paid + user.local.due %><br></td>
+                                                             </tr>
+                                                             <tr>
+                                                                 <td><strong>Donation</strong></td>
+                                                                 <td> <%= user.local.donation %><br></td>
+                                                             </tr>
+                                                             <tr>
+                                                                 <td><strong>Total Contribution(Paid+Donation)</strong></td>
+                                                                 <td> <%= user.local.paid + user.local.donation %><br></td>
+                                                             </tr>
+                                                             <tr>
+                                                                 <td><strong>Membership Status</strong></td>
+                                                                 <td><%= user.local.status %><br></td>
+                                                             </tr>                                                                                                                  
+                                                                                                                     
+                                                            
+                                                            
+                                                            
+                                                        </table>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                </div>
+
+                                <div id="edit" class="tab-pane">
+                                    
+                                            <div class="jumbotron text-center">  
+
+                                                    <h1><span class="glyphicon glyphicon-edit"></span> Edit Personal Information</h1>
+
+                                                    
+                                                    
+
+                                                    <!-- Edit FORM -->
+                                                    <form action="/profile/edit" method="post">
+                                                        <div class="form-group">
+                                                            <label>Name</label>
+                                                            <input type="text" class="form-control" name="uname" value="<%=user.local.uname%>" autofocus>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Phone</label>
+                                                            <input type="text" class="form-control" name="phone" value="<%=user.local.phone%>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input type="email" class="form-control" name="email" value="<%=user.local.email%>">
+                                                        </div>
+                                                                                                               
+                                                        
+                                                        <div class="form-group">
+                                                            <label>Pledged Monthly Fee</label>
+                                                            <input type="number" class="form-control" name="fee" value="<%=user.local.fee%>">
+                                                        </div>
+                                                        
+
+                                                        <button type="submit" class="btn btn-warning btn-lg">Update</button>
+                                                    </form>
+                                            </div>
+
+                                </div>
+                                <div id="see_tr" class="tab-pane">
+                                            <div class="well well-lg scroll">
+                                                    <h3><span class="glyphicon glyphicon-book"></span> Transaction History </h3>
+
+                                                        <table class = "table table-bordered table-striped">
+                                                           <tr> 
+                                                                
+                                                                
+                                                                <td><strong>Date</strong></td>
+                                                                <td><strong>Amount</strong></td>
+                                                                <td><strong>Type</strong></td>
+                                                                <td><strong>Given To</strong></td>
+                                                                <td><strong>Status</strong></td>
+                                                                
+                                                                
+                                                           </tr>
+                                                           <% transactions.forEach(function(transaction) { %>
+                                                                <tr>
+                                                                    
+                                                                    <td> <%= transaction.date %><br></td>
+                                                                    <td><%= transaction.amount %><br></td>
+                                                                    <td><%= transaction.type %><br></td>
+                                                                    <td><%= transaction.givento %><br></td>
+                                                                    <td> <%= transaction.status%><br></td>
+                                                                    
+                                                                </tr>
+                                                             <% }); %>
+                                                        </table>
+
+                                                </div> <!--well div end-->
+                                    
+                                                
+                                    </div>
+                                <div id="add_tr" class="tab-pane">
+                                    <div class="jumbotron text-center">  
+
+                                                    <h1><span class="glyphicon glyphicon-edit"></span> Add a recent transaction</h1>
+
+                                                    
+                                                    
+
+                                                    <!-- Edit FORM -->
+                                                    <form action="/add_t/<%=user.local.email%>" method="post">
+                                                        <div class="form-group">
+                                                            <label>Amount</label>
+                                                            <input type="number" class="form-control" name="amount" required autofocus>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Type</label>
+                                                            <select name = 'type' class='form-control' required>
+                                                                <option value ="fee">Monthly Fee</option>
+                                                                <option value="donation"> Donation</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Date</label>
+                                                            <input type="text" class="form-control" name="date" placeholder = "dd-mm-yy"  required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Given To</label>
+                                                            <input type="text" class="form-control" name="givento" required>
+                                                        </div>
+                                                                                                               
+                                                        
+                                                        <div class="form-group">
+                                                            
+                                                            <input  name="status" value="Pending" hidden>
+                                                        </div>
+                                                        
+
+                                                        <button type="submit" class="btn btn-info btn-lg">Send to Admin for approval</button>
+                                                    </form>
+                                            </div>
+                                </div>
+                                <div id="pass" class="tab-pane">
+                                    
+                                        <h3><span class="glyphicon glyphicon-pencil"></span> Change Password</h3>
+
+                                                
+
+                                                <!-- Forgot password FORM -->
+                                                <form action="/profile/changepass" method="post">
+                                                    <div class="form-group">
+                                                        
+                                                    <div class="form-group">
+                                                        <label>New Password</label>
+                                                        <input type="password" class="form-control" name='newpass' id = "newpass" value='' placeholder='New password'  required>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label>Confirm Password</label>
+                                                        <input type="password" class="form-control" name='confirm' value='' placeholder='Confirm password' id="password_confirm" oninput="check(this)" required>
+                                                    </div>
+                                                    <script language='javascript' type='text/javascript'>
+                                                        function check(input) {
+                                                        if (input.value != document.getElementById('newpass').value) {
+                                                        input.setCustomValidity('Passwords don\'t match.');
+                                                        } else {
+                                                        // input is valid -- reset the error message
+                                                        input.setCustomValidity('');
+                                                        //document.getElementById('#password_confirm').css({'color': '#FF0000'});
+                                                               }
+                                                         }
+                                                    </script>
+
+                                                    <button type="submit" class="btn btn-danger btn-lg">Change Password</button>
+                                                </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+<!-- Start Copyright Section -->
+    
+        <div class="copyright text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>©IOT Team 2015, All rights reserved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Section -->
+
+        
+</body>
+</html>

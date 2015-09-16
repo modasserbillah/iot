@@ -1,0 +1,373 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>IOT</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link href="css/profile.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+    
+</head>
+<body>
+        <!-- Start Logo Section -->
+        <section id="logo-section" class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo text-center">
+                            <h1>IOT</h1>
+                            <span>spreading smiles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Logo Section -->
+
+
+        <div class="container">
+                    <div class="row">
+                       <div class="user-details">
+                    
+                            <div class="user-info-block">
+                                        <div class="user-heading">
+                                            <h1> Admin Area </h1>
+                                            <h3><strong> <%= user.local.uname %></strong><br></h3>
+                                            <span class="help-block">Admin of the IOT team</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                        <% if (  user.local.status === 'admin' ) { %>
+                                                <a class="btn btn-success" href="/profile" role="button">Member Menu</a>
+                                        <% } %>
+                                        </div>
+                                        <br>
+
+                                        <div>
+                                            <ul class="navigation" data-tabs="tabs">
+                                                <li>
+                                                    <a  title = "Home"  href="/">
+                                                        <span class="glyphicon glyphicon-home"> </span>
+                                                    </a>
+                                                </li>
+                                                <li class="active">
+                                                    <a data-toggle="tab" title = "Records"  href="#records">
+                                                        <span class="glyphicon glyphicon-tasks"> <b>Members </b></span>
+                                                    </a>
+                                                </li>
+                                                <!--<li>
+                                                    <a data-toggle="tab" title = "Update Memeber Records"  href="#umr">
+                                                        <span class="glyphicon glyphicon-edit"><b>Update Member Records</b> </span>
+                                                    </a>
+                                                </li>-->
+                                                <li>
+                                                    <a data-toggle="tab" title = "Add New Member"  href="#add">
+                                                        <span class="glyphicon glyphicon-plus"> <b>Add New Member</b> </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a title = "Add Transaction" data-toggle="tab" href="#add_tr">
+                                                        <span class="glyphicon glyphicon-credit-card"> <b>Add a Transaction</b> </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a title = "Approve Transactions" data-toggle="tab" href="#app_tr">
+                                                        <span class="glyphicon glyphicon-book"> <b>Approve Transaction Requests</b> </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a title = "See Transactions" data-toggle="tab" href="#see_tr">
+                                                        <span class="glyphicon glyphicon-eye-open"> <b>See All  Transactions</b> </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a title = "Log Out"  href="/logout">
+                                                        <span class="glyphicon glyphicon-log-out"> </b> </span>
+                                                    </a>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    
+                        <div class="user-body">
+                            <div class="tab-content">
+                                <div id="records" class="tab-pane active">
+                                    
+                                        <div class="row">
+
+
+                                            <!-- LOCAL INFORMATION -->
+                                            <div >
+                                                <div class="well well-lg scroll">
+                                                    <h3><span class="fa fa-user"></span> General Member Records </h3>
+
+                                                        <table class = "table table-bordered table-striped">
+                                                           <tr> 
+                                                                <td><strong>Action</strong></td>
+                                                                <td><strong>Member ID</strong></td>
+                                                                <td><strong>Name</strong></td>
+                                                                <td><strong>Email</strong></td>
+                                                                <td><strong>Contact Number</strong> </td>
+                                                                <td><strong>Monthly Pledged Fee</strong></td>
+                                                                <td><strong>Member Since</strong></td>
+                                                                <td><strong>Fees Clear Upto</strong></td>
+                                                                <td><strong>Fees Paid</strong></td>
+                                                                <td class="danger"><strong>Due</strong></td>
+                                                                <td><strong>Total Fees (Paid + Due)</strong></td>
+                                                                <td><strong>Donation</strong></td>
+                                                                <td><strong>Total Contribution ( Paid + Donation)</strong></td>
+                                                                <td><strong>Membership Status</strong></td>
+                                                                
+                                                           </tr>
+                                                           <% members.forEach(function(member) { %>
+                                                                <tr>
+                                                                    <td> <a href="/adminupdate/<%= member.local.email %>" class="btn btn-success"  id= 'update'>Update</a></td>
+                                                                    <td> <%= member.memberid %><br></td>
+                                                                    <td> <%= member.local.uname %><br></td>
+                                                                    <td><%= member.local.email %><br></td>
+                                                                    <td> <%= member.local.phone %><br></td>
+                                                                    <td> <%= member.local.fee %><br></td>
+                                                                    <td><%= member.local.memberSince %><br></td>
+                                                                    <td><%= member.local.clearUpto %><br></td>
+                                                                    <td><%= member.local.paid %><br></td>
+                                                                    <td class="danger"><%= member.local.due %><br></td>
+                                                                    <td> <%= member.local.paid + member.local.due %><br></td>
+                                                                    <td> <%= member.local.donation %><br></td>
+                                                                    <td> <%= member.local.paid + member.local.donation %><br></td>
+                                                                    <td><%= member.local.status %><br></td>
+                                                            </tr>
+                                                             <% }); %>
+                                                        </table>
+
+                                                </div> <!--well div end-->
+                                             </div> <!-- fao div end-->   
+                                            
+
+                                        </div> <!-- row div end-->
+                                </div> <!-- records tab div end -->
+
+                                <div id="add" class="tab-pane">
+                                                <div class="container">
+
+                                                            <div class="col-md-8 col-sm-offset-2">
+                                                            <div class="jumbotron text-center">  
+
+                                                                <h1><span class="glyphicon glyphicon-edit"></span> Add New Member </h1>
+
+                                                                
+                                                                
+                                                                <!-- Add member FORM -->
+                                                                <form action="/adminadd" method="post">
+                                                                    <div class="form-group">
+                                                                        <label>Name</label>
+                                                                        <input type ="text" name ="uname" class="form-control" id="uname"  autofocus required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Email</label>
+                                                                        <input type ="text" name ="email"  class="form-control" required >
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Password</label>
+                                                                        <input type ="password" name ="password"  class="form-control" required >
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Phone</label>
+                                                                        <input type ="text" name ="phone" class="form-control" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Fee</label>
+                                                                        <input type ="number" name ="fee" class="form-control" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Member Since</label>
+                                                                        <input type ="text" name ="memberSince" class="form-control" required placeholder="dd-mm-yy">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Clear Upto</label>
+                                                                        <input type ="text" name ="clearUpto" class="form-control" required placeholder="dd-mm-yy">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Paid</label>
+                                                                        <input type ="number" name ="paid" class="form-control" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Due</label>
+                                                                        <input type ="number" name ="due" class="form-control" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Donation</label>
+                                                                        <input type ="number" name ="donation" class="form-control" required>
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-group">
+                                                                        <label>Status</label>
+                                                                        
+                                                                        <select name='status' required>
+                                                                                                                                                          
+                                                                              <option value="member">Member</option>
+                                                                              <option value="admin">Admin</option>
+                                                                            </select>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                    
+
+                                                                    <button type="submit" class="btn btn-warning btn-lg">Add</button>
+                                                                </form>
+                                                    </div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                <div id="add_tr" class="tab-pane">
+                                    <div class="jumbotron text-center">  
+
+                                                    <h1><span class="glyphicon glyphicon-edit"></span> Add a recent transaction</h1>
+
+                                                    
+                                                    
+
+                                                    <!-- Edit FORM -->
+                                                    <form action="/admin_add_t" method="post">
+                                                        <div class="form-group">
+                                                            <label>Email address of member</label>
+                                                            <input type="email" class="form-control" name="email" required autofocus>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Amount</label>
+                                                            <input type="number" class="form-control" name="amount" required >
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Type</label>
+                                                            <select name = 'type' class='form-control' required>
+                                                                <option value ="fee">Monthly Fee</option>
+                                                                <option value="donation"> Donation</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Date</label>
+                                                            <input type="text" class="form-control" name="date" placeholder = "dd-mm-yy" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Given To</label>
+                                                            <input type="text" class="form-control" name="givento" required>
+                                                        </div>
+                                                                                                               
+                                                        
+                                                        <div class="form-group">
+                                                            
+                                                            <input  name="status" value="Received" hidden>
+                                                        </div>
+                                                        
+
+                                                        <button type="submit" class="btn btn-info btn-lg">Add</button>
+                                                    </form>
+                                            </div>
+                                </div>
+
+                                <div id="app_tr" class="tab-pane">
+                                             <div class="well well-lg scroll">
+                                                    <h3><span class="glyphicon glyphicon-book"></span> Pending Transaction Requests </h3>
+
+                                                        <table class = "table table-bordered table-striped">
+                                                           <tr> 
+                                                                
+                                                                
+                                                                <td><strong>Date</strong></td>
+                                                                <td><strong>Sender</strong></td>
+                                                                <td><strong>Amount</strong></td>
+                                                                <td><strong>Type</strong></td>
+                                                                <td><strong>Given To</strong></td>
+                                                                <td><strong>Status</strong></td>
+                                                                <td><strong>Action</strong></td>
+                                                                
+                                                                
+                                                           </tr>
+                                                           <% trans.forEach(function(transaction) { %>
+                                                                <tr>
+                                                                    
+                                                                    <td> <%= transaction.date %><br></td>
+                                                                    <td><%= transaction.email %><br></td>
+                                                                    <td><%= transaction.amount %><br></td>
+                                                                    <td><%= transaction.type %><br></td>
+                                                                    <td><%= transaction.givento %><br></td>
+                                                                    <td> <%= transaction.status%><br></td>
+                                                                    <td> <a href="/adminapprove/<%= transaction.email %>/<%= transaction.date %>" class="btn btn-success"  >Approve</a> <a href="/deletetransaction/<%= transaction.email %>/<%= transaction.date %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this transaction record?')"> Discard </a></td>
+                                                                </tr>
+                                                             <% }); %>
+                                                        </table>
+
+                                                </div> <!--well div end-->
+                                    
+                                                
+                                    </div> <!--app_tr tab end-->
+
+                                    <div id="see_tr" class="tab-pane">
+                                            <div class="well well-lg scroll">
+                                                    <h3><span class="glyphicon glyphicon-book"></span> Transaction History </h3>
+
+                                                        <table class = "table table-bordered table-striped">
+                                                           <tr> 
+                                                                
+                                                                <td><strong>Date</strong></td>
+                                                                <td><strong>Email</strong></td>
+                                                                <td><strong>Amount</strong></td>
+                                                                <td><strong>Type</strong></td>
+                                                                <td><strong>Given To</strong></td>
+                                                                <td><strong>Status</strong></td>
+                                                                
+                                                                
+                                                           </tr>
+                                                           <% transactions.forEach(function(transaction) { %>
+                                                                <tr>
+                                                                    
+                                                                    <td> <%= transaction.date %><br></td>
+                                                                    <td> <%= transaction.email %><br></td>
+                                                                    <td><%= transaction.amount %><br></td>
+                                                                    <td><%= transaction.type %><br></td>
+                                                                    <td><%= transaction.givento %><br></td>
+                                                                    <td> <%= transaction.status%><br></td>
+                                                                    
+                                                                </tr>
+                                                             <% }); %>
+                                                        </table>
+
+                                                </div> <!--well div end-->
+                                    
+                                                
+                                    </div>
+                                 
+
+
+                                
+                            </div> <!--row div end-->
+                                
+                            </div> <!-- tab content div end-->
+                        </div> <!-- user body div end-->
+                        </div> <!--user info block end-->
+                    </div><!-- user class div end-->
+                    
+            
+
+        
+
+        </div> <!--container div end-->
+        <!-- Start Copyright Section -->
+    
+        <div class="copyright text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>©IOT Team 2015, All rights reserved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Section -->
+
+</body>
+</html>

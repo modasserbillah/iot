@@ -1,0 +1,123 @@
+<!-- views/adminupdate.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>IOT</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/profile.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+    
+</head>
+<body>
+        <!-- Start Logo Section -->
+        <section id="logo-section" class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo text-center">
+                            <h1>IOT</h1>
+                            <span>spreading smiles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Logo Section -->
+
+    
+<div class="container">
+
+<div class="col-md-8 col-sm-offset-2">
+<div class="jumbotron text-center">  
+
+    <h1><span class="glyphicon glyphicon-edit"></span> Edit records of <%= member.local.uname %> </h1>
+
+    <!-- show any messages that come back with authentication -->
+    
+    <!-- Edit FORM -->
+    <form action="/adminupdate/<%= member.local.email %>" method="post">
+        <div class="form-group">
+            <label>Name</label>
+            <input type ="text" name ="uname" class="form-control" id="uname" value ="<%= member.local.uname %>">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type ="text" name ="email"  class="form-control" value ="<%= member.local.email %>" disabled>
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            <input type ="text" name ="phone" class="form-control" value ="<%= member.local.phone %>">
+        </div>
+        <div class="form-group">
+            <label>Fee</label>
+            <input type ="number" name ="fee" class="form-control" value ="<%= member.local.fee %>">
+        </div>
+        <div class="form-group">
+            <label>Member Since</label>
+            <input type ="text" name ="memberSince" class="form-control" placeholder = "dd-mm-yy" value ="<%= member.local.memberSince %>">
+        </div>
+        <div class="form-group">
+            <label>Clear Upto</label>
+            <input type ="text" name ="clearUpto" class="form-control" placeholder = "dd-mm-yy" value ="<%= member.local.clearUpto %>">
+        </div>
+        <div class="form-group">
+            <label>Paid</label>
+            <input type ="number" name ="paid" class="form-control" value ="<%= member.local.paid %>">
+        </div>
+        <div class="form-group">
+            <label>Due</label>
+            <input type ="number" name ="due" class="form-control" value ="<%= member.local.due %>">
+        </div>
+        <div class="form-group">
+            <label>Donation</label>
+            <input type ="number" name ="donation" class="form-control" value ="<%= member.local.donation %>">
+        </div>
+        
+        <div class="form-group">
+            <label>Status</label>
+            
+            <select name='status'>
+                  <option value="<%= member.local.status %>"><%= member.local.status %></option>
+                  <option value="pending">Pending</option>
+                  <option value="member">Member</option>
+                  <option value="admin">Admin</option>
+                </select>
+        </div>
+        
+        
+        
+
+        <button type="submit" class="btn btn-warning btn-lg">Update</button>
+    </form>
+    <br><a id ='delete' href='/delete/<%= member.local.email %>' onclick = "return confirm('Delete this member?')" class = "btn btn-danger btn-lg">Delete Member</a>
+    
+
+    <hr>
+
+    <p>Go back to admin page <a href="/admin">ADMIN</a></p>
+    <p>Or go <a href="/">home</a>.</p>
+
+</div>
+
+</div>
+</div>
+<!-- Start Copyright Section -->
+        <div class="copyright text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>©IOT Team 2015, All rights reserved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Section -->
+</body>
+</html>
+
